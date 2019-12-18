@@ -20,19 +20,20 @@ A customisable React Native video player for Android and IOS
 
 ## Install
 
+### NPM
 ```shell
-npm i -S react-native-af-video-player
+npm i --save react-native-af-video-player
 ```
-
-Then link
-
+### YARN
 ```shell
-react-native link react-native-video
-react-native link react-native-keep-awake
-react-native link react-native-vector-icons
-react-native link react-native-orientation
-react-native link react-native-linear-gradient
+yarn add react-native-af-video-player
 ```
+After that Complete the setup of [[react-native-orientation-locker]](https://github.com/wonday/react-native-orientation-locker)
+
+### Note- 
+
+This project aimed for RN 0.60.0+ [Although you can use below RN 0.60 from [[here]](https://github.com/wonday/react-native-orientation-locker)]
+
 
 ## Simple Usage
 

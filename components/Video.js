@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import VideoPlayer from "react-native-video";
 import KeepAwake from "react-native-keep-awake";
-import Orientation from "react-native-orientation";
+import Orientation from "react-native-orientation-locker";
 import Icons from "react-native-vector-icons/MaterialIcons";
 import Controls from "./Controls";
 import { checkSource } from "./utils";
@@ -223,8 +223,8 @@ class Video extends Component {
   togglePlay() {
     this.setState({ paused: !this.state.paused }, () => {
       this.props.onPlay(!this.state.paused);
-      Orientation.getOrientation((e, orientation) => {
-        if (this.props.inlineOnly) return;
+      Orientation.getOrientation((orientation) => {
+        if (this.props.inlineOnly) return;  
         if (!this.state.paused) {
           if (this.props.fullScreenOnly && !this.state.fullScreen) {
             this.setState({ fullScreen: true }, () => {
@@ -245,7 +245,7 @@ class Video extends Component {
 
   toggleFS() {
     this.setState({ fullScreen: !this.state.fullScreen }, () => {
-      Orientation.getOrientation((e, orientation) => {
+      Orientation.getOrientation((orientation) => {
         if (this.state.fullScreen) {
           const initialOrient = Orientation.getInitialOrientation();
           const height = orientation !== initialOrient ? Win.width : Win.height;
