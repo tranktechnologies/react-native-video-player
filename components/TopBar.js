@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { View, StyleSheet, Text, Image } from "react-native";
 
 import LinearGradient from "react-native-linear-gradient";
+import Icon from "react-native-vector-icons/Ionicons";
 import ToggleIcon from "./ToggleIcon";
 import { checkSource } from "./utils";
 
@@ -27,17 +28,22 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   logo: {
-    marginLeft: 5,
+    marginLeft: 8,
     height: 25,
     width: 25
+  },
+  icon: {
+    marginLeft: 16,
+    fontSize:25
   }
 });
 
 const TopBar = props => {
-  const { logo, more, title, theme, onMorePress } = props;
+  const { logo, more, back, title, theme, onMorePress, onBackPress } = props;
   return (
     <LinearGradient colors={["rgba(0,0,0,0.75)", "rgba(0,0,0,0)"]} style={styles.container}>
       <View style={styles.row}>
+        {back && <Icon style={styles.icon} onPress={onBackPress} name="md-arrow-back" color={theme.back} />}
         {logo && <Image style={styles.logo} resizeMode="contain" {...checkSource(logo)} />}
         <Text style={[styles.title, { color: theme.title }]} numberOfLines={1} ellipsizeMode="tail">
           {title}
@@ -63,6 +69,8 @@ TopBar.propTypes = {
   logo: PropTypes.string,
   more: PropTypes.bool.isRequired,
   onMorePress: PropTypes.func.isRequired,
+  back: PropTypes.bool.isRequired,
+  onBackPress: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired
 };
 

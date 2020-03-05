@@ -114,6 +114,8 @@ class Controls extends Component {
       logo,
       more,
       onMorePress,
+      back,
+      onBackPress,
       title,
       progress,
       currentTime,
@@ -133,7 +135,9 @@ class Controls extends Component {
             logo={logo}
             more={more}
             onMorePress={() => onMorePress()}
-            theme={{ title: theme.title, more: theme.more }}
+            back={back}
+            onBackPress={() => onBackPress()}
+            theme={{ title: theme.title, more: theme.more, back:theme.back }}
           />
           <Animated.View style={[styles.flex, { transform: [{ scale: this.scale }] }]}>
             <PlayButton
@@ -180,12 +184,14 @@ Controls.propTypes = {
   onSeek: PropTypes.func.isRequired,
   onSeekRelease: PropTypes.func.isRequired,
   onMorePress: PropTypes.func.isRequired,
+  onBackPress: PropTypes.func.isRequired,
   paused: PropTypes.bool.isRequired,
   inlineOnly: PropTypes.bool.isRequired,
   hideFullScreenControl: PropTypes.bool,
   fullscreen: PropTypes.bool.isRequired,
   muted: PropTypes.bool.isRequired,
   more: PropTypes.bool.isRequired,
+  back: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   progress: PropTypes.number.isRequired,
   currentTime: PropTypes.number.isRequired,

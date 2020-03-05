@@ -40,6 +40,8 @@ const styles = StyleSheet.create({
 const defaultTheme = {
   title: "#FFF",
   more: "#FFF",
+  back: "#FFF",
+  error: "#FFF",
   center: "#FFF",
   fullscreen: "#FFF",
   volume: "#FFF",
@@ -267,6 +269,15 @@ class Video extends Component {
     });
   }
 
+  onBack=()=>{
+    if(this.state.fullScreen){
+      this.toggleFS();
+    }else{
+      this.props.onBackPress();
+    }
+
+  }
+
   animToFullscreen(height) {
     Animated.parallel([
       Animated.timing(this.animFullscreen, { toValue: height, duration: 200 }),
@@ -323,7 +334,7 @@ class Video extends Component {
         <Icons
           name="replay"
           size={60}
-          color={this.props.theme}
+          color={this.props.theme.error}
           onPress={() => this.setState({ renderError: false })}
         />
       </Animated.View>
@@ -355,6 +366,7 @@ class Video extends Component {
       onTimedMetadata,
       resizeMode,
       onMorePress,
+      onBackPress,
       inlineOnly,
       playInBackground,
       playWhenInactive,
@@ -429,6 +441,8 @@ class Video extends Component {
           title={title}
           more={!!onMorePress}
           onMorePress={() => onMorePress()}
+          back={!!onBackPress}
+          onBackPress={this.onBack}
           theme={setTheme}
           inlineOnly={inlineOnly}
           controlDuration={controlDuration}
@@ -464,6 +478,7 @@ Video.propTypes = {
   onError: PropTypes.func,
   onProgress: PropTypes.func,
   onMorePress: PropTypes.func,
+  onBackPress: PropTypes.func,
   onFullScreen: PropTypes.func,
   onTimedMetadata: PropTypes.func,
   rate: PropTypes.number,
@@ -494,6 +509,7 @@ Video.defaultProps = {
   onError: () => {},
   onProgress: () => {},
   onMorePress: undefined,
+  onBackPress:undefined,
   onFullScreen: () => {},
   onTimedMetadata: () => {},
   onBuffer: () => {},
