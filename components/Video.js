@@ -312,10 +312,10 @@ class Video extends Component {
   }
 
   progress(time) {
-    const { currentTime } = time;
-    const progress = currentTime / this.state.duration;
+    const { currentTime,seekableDuration } = time;
+    const progress = currentTime / seekableDuration;
     if (!this.state.seeking) {
-      this.setState({ progress, currentTime }, () => {
+      this.setState({ progress, currentTime,duration:seekableDuration }, () => {
         this.props.onProgress(time);
       });
     }
