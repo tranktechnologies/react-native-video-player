@@ -34,6 +34,14 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
     zIndex: 99
+  },
+  icon: {
+    position:'absolute',
+    top:0,
+    start:0,
+    marginLeft: 16,
+    marginTop:16,
+    fontSize:25
   }
 });
 
@@ -323,6 +331,7 @@ class Video extends Component {
 
   renderError() {
     const { fullScreen } = this.state;
+    const { theme, onBackPress } = this.props;
     const inline = {
       height: this.animInline,
       alignSelf: "stretch"
@@ -330,11 +339,13 @@ class Video extends Component {
     const textStyle = { color: "white", padding: 10 };
     return (
       <Animated.View style={[styles.background, fullScreen ? styles.fullScreen : inline]}>
+        {onBackPress && <Icons style={styles.icon} onPress={onBackPress} name="keyboard-backspace" color={theme.back} />}
+
         <Text style={textStyle}>Retry</Text>
         <Icons
           name="replay"
           size={60}
-          color={this.props.theme.error}
+          color={theme.error}
           onPress={() => this.setState({ renderError: false })}
         />
       </Animated.View>
