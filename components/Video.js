@@ -320,10 +320,10 @@ class Video extends Component {
   }
 
   progress(time) {
-    const { currentTime,seekableDuration } = time;
+    const { currentTime, seekableDuration } = time;
     const progress = currentTime / seekableDuration;
     if (!this.state.seeking) {
-      this.setState({ progress, currentTime,duration:seekableDuration }, () => {
+      this.setState({ progress, currentTime, duration:seekableDuration }, () => {
         this.props.onProgress(time);
       });
     }
@@ -383,7 +383,8 @@ class Video extends Component {
       playWhenInactive,
       controlDuration,
       hideFullScreenControl,
-      onBuffer
+      onBuffer,
+      bufferConfig
     } = this.props;
 
     const inline = {
@@ -431,6 +432,7 @@ class Video extends Component {
           onError={e => this.onError(e)}
           onBuffer={onBuffer} // Callback when remote video is buffering
           onTimedMetadata={e => onTimedMetadata(e)} // Callback when the stream receive some metadata
+          useTextureView={false}
         />
         <Controls
           ref={ref => {
@@ -458,6 +460,7 @@ class Video extends Component {
           inlineOnly={inlineOnly}
           controlDuration={controlDuration}
           hideFullScreenControl={hideFullScreenControl}
+          bufferConfig={bufferConfig}
         />
       </Animated.View>
     );
@@ -499,7 +502,8 @@ Video.propTypes = {
   title: PropTypes.string,
   theme: PropTypes.object,
   resizeMode: PropTypes.string,
-  controlDuration: PropTypes.number
+  controlDuration: PropTypes.number,
+  bufferConfig: PropTypes.object
 };
 
 Video.defaultProps = {
@@ -531,7 +535,13 @@ Video.defaultProps = {
   title: "",
   theme: defaultTheme,
   resizeMode: "contain",
-  controlDuration: 3
+  controlDuration: 3,
+  bufferConfig: {
+    minBufferMs: 15000,
+    maxBufferMs: 50000,
+    bufferForPlaybackMs: 2500,
+    bufferForPlaybackAfterRebufferMs: 5000
+  }
 };
 
 export default Video;
